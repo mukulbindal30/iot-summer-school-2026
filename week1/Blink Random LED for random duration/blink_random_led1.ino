@@ -21,5 +21,5 @@ void loop()
   digitalWrite(x, HIGH);
   delay(y);
   digitalWrite(x, LOW);
-  delay(a);
+  delay(z);
 }
