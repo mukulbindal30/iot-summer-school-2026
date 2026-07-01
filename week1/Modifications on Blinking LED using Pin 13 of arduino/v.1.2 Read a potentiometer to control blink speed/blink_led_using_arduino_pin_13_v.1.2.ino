@@ -18,4 +18,4 @@ void loop() {
   blinkCount++;
   Serial.print("Blink count: ");
   Serial.println(blinkCount);
-}
+}// Fixed potentiometer upper boundary limit mapping issue
