@@ -1,0 +1,42 @@
+name: Count Arduino Files
+
+on:
+  push:
+    branches: [ "main", "master" ] # Adjust branches to match your default branch
+  pull_request:
+    branches: [ "main", "master" ]
+
+jobs:
+  count-ino:
+    runs-on: ubuntu-latest
+
+    steps:
+    # Step 1: Check out the repository code so the runner can access it
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    # Step 2: Set up the Python environment
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-python-version: '3.x' # Uses the latest stable 3.x version
+
+    # Step 3: Run the Python script to count .ino files
+    - name: Count .ino files
+      run: |
+        python -c "
+        import pathlib
+        
+        # Search recursively for all files ending with .ino
+        ino_files = list(pathlib.Path('.').rglob('*.ino'))
+        count = len(ino_files)
+        
+        print('=' * 40)
+        print(f'Total .ino files found: {count}')
+        print('=' * 40)
+        
+        if count > 0:
+            print('Files found:')
+            for file in ino_files:
+                print(f' - {file}')
+        "
